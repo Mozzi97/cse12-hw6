@@ -11,6 +11,9 @@ public class Registration implements Comparable<Registration> {
 		this.student = student;
 		this.course = course;
 		this.coins = coins;
+		this.setTimestamp();
+		CourseScheduling.print(getStudent(),getCourse(),
+				getCoins(),false);
 	}
 	
 	public Student getStudent() {
@@ -38,14 +41,14 @@ public class Registration implements Comparable<Registration> {
 	@Override
     public int compareTo( Registration o ) {
 		
-		if((this.getCoins()/timestamp)<(o.getCoins()/timestamp)){
+		if((this.getCoins())<(o.getCoins())){
 			return -1; 
 		}
-		else if ((this.getCoins()/timestamp)>(o.getCoins()/timestamp)){
+		else if ((this.getCoins())>(o.getCoins())){
 			return 1;
 		}
 		else{
-			if(this.timestamp > o.timestamp){
+			if(this.timestamp < o.timestamp){
 				return 1;
 			}
 			else{

@@ -44,8 +44,9 @@ public class Student implements Student_Interface {
 	 * @param c Course to be enrolled in
 	 */
 	public void enrollCourse(Course c) {
-		myEnrolledCourses.add(c);
 		myWaitlist.remove(c);
+		myEnrolledCourses.add(c);
+		
 		
 	}
 

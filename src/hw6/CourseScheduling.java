@@ -156,55 +156,57 @@ public class CourseScheduling {
 		        	Course crs = getCourse(scWord.next());
 		        	int coins = scWord.nextInt();
 		        	
-		        	
+		        	boolean checkcoins = true;
 		        	boolean enroll = true;
 		        	for(int i = 0; i<std.getmyWaitlist().size();i++){
-		        		if(std.getmyWaitlist().get(i).getCourseName().equals(crs)){
+		        		if(std.getmyWaitlist().get(i).getCourseName()
+		        				.equals(crs.getCourseName())){
 		        			enroll = false;
+		        			checkcoins = false;
 		        			printFail(std,crs,false);
 		        		}
 		        	}
 		        	
 		        	for(int i = 0; i<std.getmyEnrolledCourses().size();i++){
-		        		if(std.getmyEnrolledCourses().get(i).getCourseName().equals(crs)){
+		        		if(std.getmyEnrolledCourses().get(i).getCourseName()
+		        				.equals(crs.getCourseName())){
 		        			enroll = false;
+		        			checkcoins = false;
 		        			printFail(std,crs,true);
 		        		}
 		        	}
-		        	
-		        	if(std.getCoins()<=0){
+		        	if(checkcoins){
+		        	if(std.getCoins()<coins){
 		        		enroll = false;
 		        		printNoCoins(std,crs);
+		        	}	
+		        	}
+		        	if(crs.isFull()){
+		        		enroll=false;
+		        		printCapacity(crs);
 		        	}
 		        	
 		        	if(enroll){
 		        		Registration reg = new Registration(std,crs,coins);
-			        	reg.setTimestamp();
 			        	reg.getCourse().addToWaitlist(reg);
 			        	reg.getStudent().waitlistCourse(crs);
 			        	reg.getStudent().deductCoins(reg.getCoins());
-			        	for(int i = 0; i < std.getmyWaitlist().size();i++){
-		     				print(std,std.getmyWaitlist().get(i),coins,false);
-		    			}
 		        	}
-		        	
-		        	
-		    		
-		        	
+
 		        }else if(property.equals("enroll")){
 		        	//process registrations in the waitlist
 		        	System.out.println("\n####STARTING BATCH ENROLLMENT####");
 		        	int quantity = scWord.nextInt();
 		        	for(int i = 1; i<=quantity; i++){
 		        		for(int j = 0; j<courseList.size(); j++){
+		        			
 		        			Course crs = courseList.get(j);
-			        			crs.processWaitlist();
+			        		crs.processWaitlist();
+			        		
 		        		}
 		        	}
 		        	
-		        	
-		        	
-		        	
+		        			        			        	
 		        	System.out.println("####ENDING BATCH ENROLLMENT####\n");
 		        }else break;
 		        scWord.close();

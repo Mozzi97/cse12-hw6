@@ -23,20 +23,26 @@ public class MyPriorityQueue<T extends Comparable<? super T>> {
      * @return returns true
      */
     public boolean offer( T element ) throws NullPointerException {
+    	if(element == null){
+			   throw new NullPointerException();
+		   }
     	heap.add(element);
         return true;
     }
     
     /**
-     * Retrieves the head of this Priority Queue (smallest element), or null 
+     * Retrieves the head of this Priority Queue (largest element), or null 
      * if the queue is empty.
      *
      * @return The head of the queue (smallest element), or null if queue is
      *           empty.
      */
     public T poll() {
-        return (T) heap.remove(); 
-       
+    	if(heap.size() == 0){
+    		return null;
+    	}
+    	return (T) heap.remove(); 
+    	
             
     }
     
@@ -52,7 +58,11 @@ public class MyPriorityQueue<T extends Comparable<? super T>> {
      *  returns null if this queue is empty.
      * @return the next item to be removed, null if the queue is empty
      */
-    public T peek() {
+    @SuppressWarnings("unchecked")
+	public T peek() {
+    	if(heap.size() == 0){
+    		return null;
+    	}
     	return (T) heap.element(); 
     }
 

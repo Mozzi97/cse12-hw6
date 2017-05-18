@@ -20,6 +20,7 @@ public class dHeapTester {
 	dHeap full;
 	dHeap minimum;
 	dHeap min2;
+	dHeap max;
 	
 
 	@Before
@@ -30,6 +31,7 @@ public class dHeapTester {
 		full = new dHeap(3,27,true);
 		minimum = new dHeap(3,27,false);
 		min2= new dHeap(3,27,false);
+		max = new dHeap(3,27,true);
 		heap.add(55);
 		heap.add(24);
 		heap.add(34);
@@ -40,6 +42,10 @@ public class dHeapTester {
 		min.add(6);
 		min.add(54);
 		
+		
+		for(int i = 26; i>=0; i--){
+			max.add(i);
+		}
 		for(int i = 0; i<27; i++){
 			full.add(i);
 		}
@@ -103,13 +109,50 @@ public class dHeapTester {
 		full.remove();
 		assertEquals("Check remove",23,full.element());
 //		full.print();
+//		System.out.println(min.element());
+		min.remove();
+		System.out.println(min.element());
+		min.remove();
+		System.out.println(min.element());
+		min.remove();
+		
 		try{
 			  empty.remove();
 			  fail("Should have generated an exception");  
 		  }
 		  catch(NoSuchElementException e){}
+		try{
+			  empty.element();
+			  fail("Should have generated an exception");  
+		  }
+		  catch(NoSuchElementException e){}
+		try{
+			  min.remove();
+			  min.element();
+			  min.remove();
+			  min.element();
+			  min.remove();
+			  min.element();
+			  fail("Should have generated an exception");  
+		  }
+		  catch(NoSuchElementException e){}
+	
 	
 	}
+	
+
+	@Test
+	public void testremove2() {
+		max.remove();
+		assertEquals("Check remove",25,max.element());
+		max.remove();
+		assertEquals("Check remove",24,max.element());
+		max.remove();
+		assertEquals("Check remove",23,max.element());
+		max.remove();
+		assertEquals("Check remove",22,max.element());
+	}
+	
 	
 	@Test
 	public void testmin() {
@@ -139,13 +182,13 @@ public class dHeapTester {
 	public void testminimum2() {
 		
 		min2.remove();
-		min2.print();
 		assertEquals("Check remove",1,min2.element());
 		min2.remove();
 		assertEquals("Check remove",2,min2.element());
 		min2.remove();
-		
 		assertEquals("Check remove",3,min2.element());
+		min2.remove();
+		assertEquals("Check remove",4,min2.element());
 	}
 	
 }

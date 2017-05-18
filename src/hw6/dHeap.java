@@ -16,7 +16,7 @@ public class dHeap<T extends Comparable<? super T>>
     private int d; //branching factor
     private int nelems;
     private boolean isMaxHeap; //boolean to indicate whether heap is max or min
-			
+	
 	/**
 	 * Initializes a binary max heap with capacity = 7
 	 */
@@ -61,14 +61,25 @@ public class dHeap<T extends Comparable<? super T>>
 	}
 
 	
-	@Override
+    /**
+     * Returns the number of elements stored in the heap.
+     * 
+     * @return The number of elements stored in the heap.
+     */
 	public int size() {
 	    
 	   return nelems; 
 	    
 	}
 	
-	@Override
+	
+	/**
+     * Adds the specified element to the heap; o cannot be null. 
+     * Resizes the storage if full.
+     * 
+     * @param o The element to add.
+     * @throws NullPointerException if o is null.
+     */
 	public void add( T data ) throws NullPointerException {
 		   if(data == null){
 			   throw new NullPointerException();
@@ -83,16 +94,25 @@ public class dHeap<T extends Comparable<? super T>>
 		   
 	    
 	}
+	
 
-	@Override
+
+	 /**
+     * Removes and returns the element at the root. If the 
+     * heap is empty, then this method throws a NoSuchElementException.
+     * 
+     * @return The element at the root stored in the heap.
+     * @throws NoSuchElementException if the heap is empty
+     */
 	public T remove() throws NoSuchElementException {
 		if(this.isEmpty()){
 			throw new NoSuchElementException();
 		}
+		
 		T eleRemoved = heap[0];
 		heap[0] = heap[nelems-1];
-		heap[nelems-1] = null;
 		nelems --;
+		
 		this.trickleDown(0);
 		
 		
@@ -100,18 +120,28 @@ public class dHeap<T extends Comparable<? super T>>
 	    
 	}
 	
+	
+    /**
+     * Clears all the items in the heap
+     * Heap will be empty after this call returns
+     */
 	public void clear() {
 		 this.nelems = 0;
-			for(int i = 0; i < heap.length; i++){
-				heap[i] = null;
-			}
 	}
 	
+	
+    /**
+     * Retrieves, but does not remove, the element at the root.
+     * @return item at the root of the heap
+     * @throws NoSuchElementException - if this heap is empty
+     */
 	public T element() {
-		if(this.isEmpty()){
+		if(isEmpty()){
 			throw new NoSuchElementException();
 		}
+
 		return heap[0];
+
 	}
 	
 	
