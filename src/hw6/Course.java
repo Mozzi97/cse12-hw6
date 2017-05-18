@@ -15,7 +15,7 @@ public class Course implements Course_Interface {
 		this.courseName = name;
 		this.courseCode = code;
 		this.maxCapacity = capacity;
-		waitlistQueue = new MyPriorityQueue<Registration>(capacity);
+		waitlistQueue = new MyPriorityQueue<Registration>(maxCapacity);
 		roster = new ArrayList<Student>();
 	}
 	
@@ -76,7 +76,7 @@ public class Course implements Course_Interface {
 	 */
 	public void addToWaitlist(Registration r) {
 		waitlistQueue.offer(r);
-		r.getStudent().deductCoins(r.getCoins());
+		
 	}
 	
 	/**
@@ -84,15 +84,17 @@ public class Course implements Course_Interface {
 	 * Does nothing if the waitlist is empty
 	 */
 	public Registration processWaitlist() {
-		
+		CourseScheduling cs = new CourseScheduling();
 		if(waitlistQueue.peek() == null || isFull()){
 			return null;
 		}
-//		else if(waitlistQueue.peek() != null && !isFull()){
 		else{
+			
 			Registration std = waitlistQueue.peek();
 			waitlistQueue.poll();
 			roster.add(std.getStudent());
+			cs.print(std.getStudent(),std.getCourse(),std.getCoins(),true);
+			
 			return std;
 		}
 
