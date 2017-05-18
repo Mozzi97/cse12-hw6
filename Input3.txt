@@ -1,0 +1,19 @@
+enroll 1
+register A11111 CSE11 20
+register A65545 CSE15L 20
+register A76548 CSE15L 25
+register A11111 CSE15L 10
+register A11111 CSE30 5
+enroll 2
+register A67876 CSE15L 10
+register A76548 CSE15L 15
+register A55555 CSE15L 20
+register A76548 CSE20 15
+enroll 3
+register A55555 CSE12 30
+register A55555 CSE20 15
+enroll 2
+register A12345 CSE12 20
+register A12345 CSE20 10
+register A55555 CSE30 15
+

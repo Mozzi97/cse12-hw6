@@ -1,0 +1,7 @@
+register A65545 CSE12 20
+register A76548 CSE11 45
+register A11111 CSE12 40
+register A55555 CSE11 40
+register A12345 CSE12 15
+enroll 2
+register A12345 CSE20 10

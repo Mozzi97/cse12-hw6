@@ -84,18 +84,18 @@ public class Course implements Course_Interface {
 	 * Does nothing if the waitlist is empty
 	 */
 	public Registration processWaitlist() {
-		if(waitlistQueue.peek() != null && !isFull()){
+		
+		if(waitlistQueue.peek() == null || isFull()){
+			return null;
+		}
+//		else if(waitlistQueue.peek() != null && !isFull()){
+		else{
 			Registration std = waitlistQueue.peek();
 			waitlistQueue.poll();
 			roster.add(std.getStudent());
 			return std;
 		}
-		else if(isFull()){
-			return null;
-		}
-		else{
-			return null;
-		}
+
 	}
 	
 }

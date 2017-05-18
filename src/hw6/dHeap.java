@@ -92,8 +92,9 @@ public class dHeap<T extends Comparable<? super T>>
 		T eleRemoved = heap[0];
 		heap[0] = heap[nelems-1];
 		heap[nelems-1] = null;
-		this.trickleDown(0);
 		nelems --;
+		this.trickleDown(0);
+		
 		
 	    return eleRemoved; 
 	    
@@ -159,7 +160,7 @@ public class dHeap<T extends Comparable<? super T>>
 		int nindex = index;
 		T temp;
 		if(isMaxHeap){
-			while (heap[(d*nindex+1)] != null){
+			while (d*nindex + 1 < nelems && heap[d*index+1] != null){
 				child = this.findmax(nindex);
 				if (heap[nindex].compareTo(heap[child])<0){
 					temp = heap[nindex];
@@ -173,7 +174,7 @@ public class dHeap<T extends Comparable<? super T>>
 	        }
 		}
 		else{
-			while (heap[(d*nindex+1)] != null){
+			while (d*nindex + 1 < nelems && heap[d*index+1] != null){
 				child = this.findmin(nindex);
 				if (heap[nindex].compareTo(heap[child])>0){
 					temp = heap[nindex];
@@ -203,7 +204,7 @@ public class dHeap<T extends Comparable<? super T>>
 	
 	private int findmin(int j){
 		T min = heap[d*j+1];
-		int loc = j;
+		int loc = d * j +1;
 		
 
 		for(int i=2; i<=this.d;i++){
@@ -227,7 +228,7 @@ public class dHeap<T extends Comparable<? super T>>
 	
 	private int findmax(int j){
 		T max = heap[d*j+1];
-		int loc = j;
+		int loc = d * j +1;
 		
 
 		for(int i=2; i<=this.d;i++){

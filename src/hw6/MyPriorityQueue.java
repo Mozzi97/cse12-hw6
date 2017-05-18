@@ -53,7 +53,7 @@ public class MyPriorityQueue<T extends Comparable<? super T>> {
      * @return the next item to be removed, null if the queue is empty
      */
     public T peek() {
-    	return (T) heap.element(); //XXX-CHANGE-XXX
+    	return (T) heap.element(); 
     }
 
 }

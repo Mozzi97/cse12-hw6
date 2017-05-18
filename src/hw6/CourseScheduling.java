@@ -111,7 +111,7 @@ public class CourseScheduling {
 		Course crs = null;
 		for(int i =0; i<courseList.size(); i++){
 			crs = iter.next();
-			if(crs.getCourseCode() == code){
+			if(crs.getCourseCode().equals(code)){
 				return crs;
 			}
 		}
@@ -128,7 +128,7 @@ public class CourseScheduling {
 		Student std = null;
 		for(int i =0; i<studentList.size(); i++){
 			std = iter.next();
-			if(std.getStudentID() == pid){
+			if(std.getStudentID().equals(pid)){
 				return std;
 			}
 		}
@@ -154,24 +154,74 @@ public class CourseScheduling {
 		        	//add a new student to the course list
 		        	Student std = getStudent(scWord.next());
 		        	Course crs = getCourse(scWord.next());
-		        	Registration reg = new Registration(std,crs,scWord.nextInt());
-		        	reg.setTimestamp();
-		        	reg.getCourse().addToWaitlist(reg);
+		        	int coins = scWord.nextInt();
+		        	
+		        	
+		        	boolean enroll = false;
+		        	for(int i = 0; i<std.getmyWaitlist().size();i++){
+		        		if(std.getmyWaitlist().get(i).getCourseName().equals(crs)){
+		        			enroll = false;
+		        		}
+		        		else{enroll = true;}
+		        	}
+		        	
+		        	for(int i = 0; i<std.getmyEnrolledCourses().size();i++){
+		        		if(std.getmyEnrolledCourses().get(i).getCourseName().equals(crs)){
+		        			enroll = false;
+		        		}
+		        		else{enroll = true;}
+		        	}
+		        	
+		        	if(std.getCoins()<=0){
+		        		enroll = false;
+		        	}
+		        	
+		        	if(enroll){
+		        		Registration reg = new Registration(std,crs,scWord.nextInt());
+			        	reg.setTimestamp();
+			        	reg.getCourse().addToWaitlist(reg);
+			        	reg.getStudent().waitlistCourse(crs);
+			        	reg.getStudent().deductCoins(coins);
+			        	for(int i = 0; i < std.getmyWaitlist().size();i++){
+		     				print(std,std.getmyWaitlist().get(i), std.getCoins(),false);
+		    			}
+		        	}
+		        	
+
+//		    		while(iterS.hasNext()){
+//		    			stdt = iterS.next();
+//		    			for(int i = 0; i < stdt.getmyWaitlist().size();i++){
+//		     				print(stdt,stdt.getmyWaitlist().get(i), stdt.getCoins(),true);
+//		    			}
+//		    		
+//		        	}
+		        	
+		    		
 		        	
 		        }else if(property.equals("enroll")){
 		        	//process registrations in the waitlist
 		        	System.out.println("\n####STARTING BATCH ENROLLMENT####");
 		        	
-		        	// compare the std register with timestamp
-		        	for(int i = 0; i<=scWord.nextInt(); i++){
+		        	for(int i = 0; i<scWord.nextInt(); i++){
 		        		for(int j = 0; j<courseList.size(); j++){
-		        		courseList.get(j).processWaitlist();
+		        			courseList.get(j).processWaitlist();
 		        		}
 		        	}
-		        	for(int i = 0; i<courseList.size(); i++){
-		        		System.out.println("Enrolling " + courseList.get(i).getCourseRoster().get(i + "(" + ")");
-		        	}
-		        	//get waitlist and print it out
+		        	
+		        	ListIterator<Student> iterS = studentList.listIterator();
+		        	Student std;
+		        	
+		    		while(iterS.hasNext()){
+		    			std = iterS.next();
+		    			for(int i = 0; i < std.getmyEnrolledCourses().size();i++){
+		    			
+		    			print(std,std.getmyEnrolledCourses().get(i), std.getCoins(),true);
+		    			
+		    			
+		    			printFail(std,std.getmyEnrolledCourses().get(i),false);
+		    			
+		    			}
+		    		}
 		        	
 		        	
 		        	System.out.println("####ENDING BATCH ENROLLMENT####\n");

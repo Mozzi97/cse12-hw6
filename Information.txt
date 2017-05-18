@@ -1,0 +1,14 @@
+Courses
+CSE12 Data_Structures_and_Object_Oriented_Programming 8
+CSE11 Introduction_to_CS_and_OOP_in_Java 4
+CSE15L Software_Tools_and_Techniques 3
+CSE30 Computer_Organization_and_Systems_Programming 6
+CSE20 Introduction_to_Discrete_Mathematics 5
+
+Students
+Pooja A11111 50
+Don A76548 65
+Marina A65545 80
+Thiago A67876 55
+Max A55555 45
+Haoran A12345 50
